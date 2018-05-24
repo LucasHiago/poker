@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9A3D90EF-316C-488F-BA0F-49CA5250C160}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Poker</RootNamespace>
+    <AssemblyName>Poker</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets.cs" />
+    <Compile Include="BoardModel.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="Card.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="EndSummary.cs" />
+    <Compile Include="GameStates\ConnectingGameState.cs" />
+    <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\GameStateManager.cs" />
+    <Compile Include="GameStates\LobbyGameState.cs" />
+    <Compile Include="GameStates\MainGameState.cs" />
+    <Compile Include="GameStates\MainMenuGameState.cs" />
+    <Compile Include="Game\GameDriver.cs" />
+    <Compile Include="Game\HandStage.cs" />
+    <Compile Include="Game\Player.cs" />
+    <Compile Include="GLTF\GLTFImporter.cs" />
+    <Compile Include="GLTF\InvalidGLTFException.cs" />
+    <Compile Include="GLTF\Mesh.cs" />
+    <Compile Include="GLTF\Model.cs" />
+    <Compile Include="Graphics\BlurEffect.cs" />
+    <Compile Include="Graphics\BoardShader.cs" />
+    <Compile Include="Graphics\CardRenderer.cs" />
+    <Compile Include="Graphics\CardsTexture.cs" />
+    <Compile Include="Graphics\ChipsRenderer.cs" />
+    <Compile Include="Graphics\Graphics.cs" />
+    <Compile Include="Graphics\MaterialSettings.cs" />
+    <Compile Include="Graphics\Mesh.cs" />
+    <Compile Include="Graphics\ModelInstance.cs" />
+    <Compile Include="Graphics\PlayerNameRenderer.cs" />
+    <Compile Include="Graphics\Shader.cs" />
+    <Compile Include="Graphics\ShadowMapper.cs" />
+    <Compile Include="Graphics\SkyRenderer.cs" />
+    <Compile Include="Graphics\SpriteBatch.cs" />
+    <Compile Include="Graphics\TextMeshBuilder.cs" />
+    <Compile Include="Graphics\Texture2D.cs" />
+    <Compile Include="Graphics\TextVertex.cs" />
+    <Compile Include="Graphics\UniformBuffer.cs" />
+    <Compile Include="Graphics\Vertex.cs" />
+    <Compile Include="Hands\Flush.cs" />
+    <Compile Include="Hands\FourOfAKind.cs" />
+    <Compile Include="Hands\FullHouse.cs" />
+    <Compile Include="Hands\Hand.cs" />
+    <Compile Include="Hands\HighCard.cs" />
+    <Compile Include="Hands\Pair.cs" />
+    <Compile Include="Hands\Straight.cs" />
+    <Compile Include="Hands\StraightFlush.cs" />
+    <Compile Include="Hands\ThreeOfAKind.cs" />
+    <Compile Include="Hands\TwoPair.cs" />
+    <Compile Include="KeyboardState.cs" />
+    <Compile Include="Keys.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="MathF.cs" />
+    <Compile Include="MenuBackground.cs" />
+    <Compile Include="MenuButton.cs" />
+    <Compile Include="MouseState.cs" />
+    <Compile Include="Net\Client\Client.cs" />
+    <Compile Include="Net\Client\ServerConnection.cs" />
+    <Compile Include="Net\Connection.cs" />
+    <Compile Include="Net\ConnectionResponseStatus.cs" />
+    <Compile Include="Net\CryptoUtils.cs" />
+    <Compile Include="Net\DeckEncrypter.cs" />
+    <Compile Include="Net\IClient.cs" />
+    <Compile Include="Net\Message.cs" />
+    <Compile Include="Net\MessageId.cs" />
+    <Compile Include="Net\Protocol.cs" />
+    <Compile Include="Net\Receiver.cs" />
+    <Compile Include="Net\Sender.cs" />
+    <Compile Include="Net\Server\ClientDecryptKey.cs" />
+    <Compile Include="Net\Server\Server.BaseClient.cs" />
+    <Compile Include="Net\Server\Server.cs" />
+    <Compile Include="Net\Server\Server.RemoteClient.cs" />
+    <Compile Include="Net\Server\Server.SelfClient.cs" />
+    <Compile Include="Net\TurnEndAction.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpriteFont.cs" />
+    <Compile Include="Suits.cs" />
+    <Compile Include="TextBox.cs" />
+    <Compile Include="TotalsPane.cs" />
+    <Compile Include="UI.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="ViewProjUniformBuffer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

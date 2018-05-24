@@ -1,0 +1,7 @@
+.vs
+packages
+Native/.build
+Poker/bin
+Poker/obj
+Poker/Res/Shaders/Shaders
+Poker/Res/Shaders/.build

@@ -1,0 +1,11 @@
+#ifndef VIEW_PROJ_H
+#define VIEW_PROJ_H
+
+layout(binding=0, std140) uniform ViewProjUB
+{
+	mat4 viewProjTransform;
+	mat4 invViewProjTransform;
+	vec3 cameraPosition;
+};
+
+#endif

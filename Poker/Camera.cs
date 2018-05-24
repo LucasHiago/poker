@@ -1,0 +1,7 @@
+namespace Poker
+{
+	class Camera
+	{
+		
+	}
+}

@@ -1,0 +1,204 @@
+{
+    "accessors" : [
+        {
+            "bufferView" : 0, 
+            "componentType" : 5123, 
+            "count" : 732, 
+            "max" : [
+                407
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 1, 
+            "componentType" : 5126, 
+            "count" : 408, 
+            "max" : [
+                0.994521975517273, 
+                0.09813803434371948, 
+                0.9781476259231567
+            ], 
+            "min" : [
+                -0.9945219159126282, 
+                0.0, 
+                -0.9781476259231567
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 2, 
+            "componentType" : 5126, 
+            "count" : 408, 
+            "max" : [
+                1.0, 
+                1.0, 
+                0.9510565996170044
+            ], 
+            "min" : [
+                -1.0, 
+                0.0, 
+                -0.9510564804077148
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 3, 
+            "componentType" : 5121, 
+            "count" : 252, 
+            "max" : [
+                161
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 4, 
+            "componentType" : 5126, 
+            "count" : 162, 
+            "max" : [
+                0.9510567784309387, 
+                0.09813803434371948, 
+                1.0
+            ], 
+            "min" : [
+                -0.9510565400123596, 
+                0.0, 
+                -1.0
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 5, 
+            "componentType" : 5126, 
+            "count" : 162, 
+            "max" : [
+                0.9135458469390869, 
+                1.0, 
+                0.9945219159126282
+            ], 
+            "min" : [
+                -0.913545548915863, 
+                0.0, 
+                -0.9945219159126282
+            ], 
+            "type" : "VEC3"
+        }
+    ], 
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter", 
+        "version" : "2.0"
+    }, 
+    "bufferViews" : [
+        {
+            "buffer" : 0, 
+            "byteLength" : 1464, 
+            "byteOffset" : 0, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 4896, 
+            "byteOffset" : 1464, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 4896, 
+            "byteOffset" : 6360, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 252, 
+            "byteOffset" : 11256, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 1944, 
+            "byteOffset" : 11508, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 1944, 
+            "byteOffset" : 13452, 
+            "target" : 34962
+        }
+    ], 
+    "buffers" : [
+        {
+            "byteLength" : 15396, 
+            "uri" : "Chip.bin"
+        }
+    ], 
+    "materials" : [
+        {
+            "name" : "Red", 
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.640000066757203, 
+                    0.0, 
+                    0.0034460560000845186, 
+                    1.0
+                ], 
+                "metallicFactor" : 0.0
+            }
+        }, 
+        {
+            "name" : "White", 
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.800000011920929, 
+                    0.800000011920929, 
+                    0.800000011920929, 
+                    1.0
+                ], 
+                "metallicFactor" : 0.0
+            }
+        }
+    ], 
+    "meshes" : [
+        {
+            "name" : "Chip", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 2, 
+                        "POSITION" : 1
+                    }, 
+                    "indices" : 0, 
+                    "material" : 0
+                }, 
+                {
+                    "attributes" : {
+                        "NORMAL" : 5, 
+                        "POSITION" : 4
+                    }, 
+                    "indices" : 3, 
+                    "material" : 1
+                }
+            ]
+        }
+    ], 
+    "nodes" : [
+        {
+            "mesh" : 0, 
+            "name" : "Chip"
+        }
+    ], 
+    "scene" : 0, 
+    "scenes" : [
+        {
+            "name" : "Scene", 
+            "nodes" : [
+                0
+            ]
+        }
+    ]
+}
