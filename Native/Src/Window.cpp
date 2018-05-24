@@ -9,9 +9,6 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 
-constexpr int WIDTH = 1200;
-constexpr int HEIGHT = 800;
-
 #ifndef NDEBUG
 void GLAPIENTRY OpenGLMessageCallback(GLenum, GLenum type, GLuint id, GLenum severity, GLsizei length,
                                       const GLchar* message, const void*)
@@ -68,7 +65,12 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	
-	SDL_Window* window = SDL_CreateWindow("Poker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT,
+	SDL_DisplayMode displayMode;
+	SDL_GetCurrentDisplayMode(0, &displayMode);
+	
+	const int winWidth = static_cast<int>(displayMode.w * 0.7);
+	const int winHeight = static_cast<int>(displayMode.h * 0.75);
+	SDL_Window* window = SDL_CreateWindow("Poker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winWidth, winHeight,
 	                                      SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 	if (window == nullptr)
 		return;
@@ -106,9 +108,9 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	stbi_set_unpremultiply_on_load(true);
 	
 	initCallback();
-	resizeCallback(WIDTH, HEIGHT);
-	DisplayWidth = WIDTH;
-	DisplayHeight = HEIGHT;
+	resizeCallback(winWidth, winHeight);
+	DisplayWidth = winWidth;
+	DisplayHeight = winHeight;
 	
 	using Clock = std::chrono::high_resolution_clock;
 	Clock::duration lastFrameTime(0);
