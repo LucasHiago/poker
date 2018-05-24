@@ -7,7 +7,6 @@
 #include <chrono>
 #include <cstring>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <GL/glew.h>
 
 constexpr int WIDTH = 1200;
@@ -55,9 +54,6 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	if (SDL_Init(SDL_INIT_VIDEO))
 		return;
 	
-	if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG)
-		return;
-	
 	int contextFlags = SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG;
 #ifndef NDEBUG
 	contextFlags |= SDL_GL_CONTEXT_DEBUG_FLAG;
@@ -77,7 +73,11 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	if (window == nullptr)
 		return;
 	
-	SDL_Surface* icon = IMG_Load("./Res/UI/Icon.png");
+	int iconWidth, iconHeight;
+	stbi_uc* iconData = stbi_load("./Res/UI/Icon.png", &iconWidth, &iconHeight, nullptr, 4);
+	SDL_Surface* icon = SDL_CreateRGBSurfaceFrom(iconData, iconWidth, iconHeight, 32, 4 * iconWidth,
+	                                             0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
+	stbi_image_free(iconData);
 	SDL_SetWindowIcon(window, icon);
 	
 	SDL_GLContext glContext = SDL_GL_CreateContext(window);
