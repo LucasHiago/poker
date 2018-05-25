@@ -85,7 +85,7 @@ namespace Poker.Net.Server
 		
 		private int m_numNextHandMessagesReceived = 0;
 		
-		//Stores a list of clients which havn't yet submitted decrypt responses
+		//Stores a list of clients which have not yet submitted decrypt responses
 		private readonly List<ushort> m_pendingDecryptResponses = new List<ushort>();
 		
 		private ulong[] m_encryptedDeck;

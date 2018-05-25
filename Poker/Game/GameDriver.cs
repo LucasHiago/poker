@@ -127,11 +127,43 @@ namespace Poker
 			StepTurn();
 		}
 		
+		private void GenericRaise(int amount)
+		{
+			MinimumRaise = Math.Max(MinimumRaise, amount);
+			m_lastRaiseIndex = CurrentPlayerIndex;
+			
+			Player player = CurrentPlayer;
+			int currentPot = m_targetPotSizes.Count - 1;
+			
+			int chipsToAdd = GetCallAmount(player) + amount;
+			player.Chips -= chipsToAdd;
+			
+			AddChipsToPots(CurrentPlayer, ref chipsToAdd);
+			
+			if (chipsToAdd > 0)
+			{
+				if (m_anyAllIn)
+				{
+					//Creates a side pot containing the extra chips
+					m_targetPotSizes.Add(chipsToAdd);
+					for (int i = 0; i < Players.Length; i++)
+					{
+						Players[i].ContributionAmounts.Add(Players[i] == player ? chipsToAdd : 0);
+					}
+				}
+				else
+				{
+					m_targetPotSizes[currentPot] += chipsToAdd;
+					player.ContributionAmounts[currentPot] += chipsToAdd;
+				}
+			}
+		}
+		
 		public void AllIn()
 		{
 			Player player = CurrentPlayer;
 			
-			int callAmount = GetCallAmount(player);
+			int callAmount = CurrentBet - player.ContributionAmount;
 			int raise = player.Chips - callAmount;
 			int currentPot = m_targetPotSizes.Count - 1;
 			
@@ -139,43 +171,40 @@ namespace Poker
 			{
 				//This player doesn't have enough chips to call the all in, so create side pots.
 				
-				int missing = -raise;
+				int totalContrib = player.ContributionAmount + player.Chips;
 				
-				for (int i = 0; i < Players.Length; i++)
+				//Counts how many pots the player can fill
+				int filledPots = 0;
+				int potSizeAcc = 0;
+				for (; filledPots < m_targetPotSizes.Count; filledPots++)
 				{
-					int delta = Math.Min(missing, Players[i].ContributionAmounts[currentPot]);
-					Players[i].ContributionAmounts[currentPot] -= delta;
-					Players[i].ContributionAmounts.Add(delta);
+					potSizeAcc += m_targetPotSizes[filledPots];
+					if (potSizeAcc >= totalContrib)
+						break;
+					player.ContributionAmounts[filledPots] = m_targetPotSizes[filledPots];
 				}
 				
-				m_targetPotSizes[currentPot] -= missing;
-				m_targetPotSizes.Add(missing);
+				int missing = potSizeAcc - totalContrib; //The amount of chips missing to fill up the current pot
+				int lPotSize = m_targetPotSizes[filledPots] - missing;
+				player.ContributionAmounts[filledPots] = lPotSize;
+				if (missing > 0)
+				{
+					for (int i = 0; i < Players.Length; i++)
+					{
+						if (Players[i].Bust || Players[i].HasFolded)
+							continue;
+						int delta = Math.Max(Players[i].ContributionAmounts[currentPot] - lPotSize, 0);
+						Players[i].ContributionAmounts.Insert(filledPots + 1, delta);
+						Players[i].ContributionAmounts[filledPots] -= delta;
+					}
+				}
+				
+				m_targetPotSizes[filledPots] = lPotSize;
+				m_targetPotSizes.Insert(filledPots + 1, missing);
 			}
 			else
 			{
-				MinimumRaise = Math.Max(MinimumRaise, raise);
-				m_lastRaiseIndex = CurrentPlayerIndex;
-				
-				int chipsToAdd = player.Chips;
-				AddChipsToPots(player, ref chipsToAdd);
-				
-				if (chipsToAdd > 0)
-				{
-					if (m_anyAllIn)
-					{
-						//Creates a side pot containing the extra chips
-						m_targetPotSizes.Add(chipsToAdd);
-						for (int i = 0; i < Players.Length; i++)
-						{
-							Players[i].ContributionAmounts.Add(Players[i] == player ? chipsToAdd : 0);
-						}
-					}
-					else
-					{
-						m_targetPotSizes[currentPot] += chipsToAdd;
-						player.ContributionAmounts[currentPot] += chipsToAdd;
-					}
-				}
+				GenericRaise(raise);
 			}
 			
 			m_anyAllIn = true;
@@ -189,11 +218,8 @@ namespace Poker
 			if (amount < MinimumRaise)
 				throw new InvalidOperationException("Raise too small.");
 			
-			m_targetPotSizes[m_targetPotSizes.Count - 1] += amount;
-			MinimumRaise = amount;
-			m_lastRaiseIndex = CurrentPlayerIndex;
-			
-			Call();
+			GenericRaise(amount);
+			StepTurn();
 		}
 		
 		public void Fold()
@@ -213,7 +239,8 @@ namespace Poker
 			
 			MinimumRaise = BigBlind;
 			Stage = HandStage.PreFlop;
-			m_lastRaiseIndex = FirstPlayerIndex;
+			m_lastRaiseIndex = 0;
+			CurrentPlayerIndex = 0;
 			m_anyAllIn = false;
 			
 			m_targetPotSizes.Clear();
