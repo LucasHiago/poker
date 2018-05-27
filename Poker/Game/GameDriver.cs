@@ -52,6 +52,11 @@ namespace Poker
 			return size;
 		}
 		
+		private void IncPlayerIndex()
+		{
+			CurrentPlayerIndex = (CurrentPlayerIndex + 1) % Players.Length;
+		}
+		
 		private void StepTurn()
 		{
 			if (Players.All(player => player.AllIn))
@@ -75,8 +80,7 @@ namespace Poker
 			
 			do
 			{
-				CurrentPlayerIndex = (CurrentPlayerIndex + 1) % Players.Length;
-				
+				IncPlayerIndex();
 				if (CurrentPlayerIndex == m_lastRaiseIndex)
 					incrementStage = true;
 			}
@@ -92,7 +96,10 @@ namespace Poker
 			else if (incrementStage)
 			{
 				CurrentPlayerIndex = 0;
-				m_lastRaiseIndex = 0;
+				while (CurrentPlayer.HasFolded || CurrentPlayer.AllIn)
+					IncPlayerIndex();
+				
+				m_lastRaiseIndex = CurrentPlayerIndex;
 				Stage++;
 				
 				Log.Write("Game stage changed to " + Stage + ".");
