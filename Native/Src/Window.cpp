@@ -79,7 +79,6 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	stbi_uc* iconData = stbi_load("./Res/UI/Icon.png", &iconWidth, &iconHeight, nullptr, 4);
 	SDL_Surface* icon = SDL_CreateRGBSurfaceFrom(iconData, iconWidth, iconHeight, 32, 4 * iconWidth,
 	                                             0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000);
-	stbi_image_free(iconData);
 	SDL_SetWindowIcon(window, icon);
 	
 	SDL_GLContext glContext = SDL_GL_CreateContext(window);
@@ -178,5 +177,6 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	SDL_GL_DeleteContext(glContext);
 	SDL_DestroyWindow(window);
 	SDL_FreeSurface(icon);
+	stbi_image_free(iconData);
 	SDL_Quit();
 }
