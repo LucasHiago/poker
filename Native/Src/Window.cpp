@@ -73,7 +73,10 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	SDL_Window* window = SDL_CreateWindow("Poker", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, winWidth, winHeight,
 	                                      SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 	if (window == nullptr)
+	{
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error Creating Window", SDL_GetError(), nullptr);
 		return;
+	}
 	
 	int iconWidth, iconHeight;
 	stbi_uc* iconData = stbi_load("./Res/UI/Icon.png", &iconWidth, &iconHeight, nullptr, 4);
@@ -83,11 +86,19 @@ CS_VISIBLE void RunGame(InitCallback initCallback, CloseCallback closeCallback,
 	
 	SDL_GLContext glContext = SDL_GL_CreateContext(window);
 	if (glContext == nullptr)
+	{
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error Creating OpenGL Context", SDL_GetError(), nullptr);
 		return;
+	}
 	
 	glewExperimental = GL_TRUE; 
-	if (glewInit() != GLEW_OK)
+	GLenum glewStatus = glewInit();
+	if (glewStatus != GLEW_OK)
+	{
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error Initializing GLEW",
+		                         reinterpret_cast<const char*>(glewGetErrorString(glewStatus)), nullptr);
 		return;
+	}
 	
 #ifndef NDEBUG
 	if (GLEW_ARB_debug_output)
